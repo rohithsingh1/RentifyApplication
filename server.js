@@ -3,7 +3,13 @@ const app = express();
 
 require("dotenv").config();
 const dbConfig = require("./config/dbConfig");
+const cors = require("cors");
 app.use(express.json());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 const userRoute = require("./routes/usersRoute");
 const propertyRoute = require('./routes/propertiesRoute')
