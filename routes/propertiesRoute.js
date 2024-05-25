@@ -215,7 +215,79 @@ router.post("/likeProperty", authMiddleware, async (req, res) => {
   }
 });
 
+router.post("/edit-property", authMiddleware, async (req, res) => {
+  try {
+    const Property = database.propertyCollection;
+    const {
+      propertyName,
+      description,
+      type,
+      status,
+      price,
+      city,
+      pincode,
+      landmark,
+      address,
+      bedrooms,
+      bathrooms,
+      balconies,
+      parking,
+      furnishing,
+      area,
+      facing,
+      ownerName,
+      ownerEmail,
+      ownerPhoneNumber,
+      images = [],
+      likes,
+    } = req.body;
 
+    const propertyObj = {
+      propertyName,
+      description,
+      type,
+      status,
+      price,
+      city,
+      pincode,
+      landmark,
+      address,
+      bedrooms,
+      bathrooms,
+      balconies,
+      parking,
+      furnishing,
+      area,
+      facing,
+      ownerName,
+      ownerEmail,
+      ownerPhoneNumber,
+      images,
+      userPropertyCreater: req.body.userId,
+      updatedAt: new Date(),
+      likes,
+    };
+    const propertyId = new ObjectId(req.body._id);
+    const propertyUpdated = await Property.updateOne(
+      { _id: propertyId },
+      {
+        $set: propertyObj,
+      }
+    );
+
+    res.send({
+      success: true,
+      message: "Status updated Successfully",
+      data: propertyUpdated,
+    });
+  } catch (error) {
+    console.log("error = ", error);
+    res.send({
+      success: false,
+      message: error,
+    });
+  }
+});
 
 
 module.exports = router;

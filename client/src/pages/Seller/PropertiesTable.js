@@ -2,10 +2,12 @@ import { Table, message, Popconfirm } from "antd";
 import dayjs from "dayjs";
 import React, { useState, useEffect } from "react";
 import { DeleteProperty, SellerProperties } from "../../apicalls/properties";
+import { useNavigate } from "react-router-dom";
 
 function PropertiesTable() {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const onDelete = async (id) => {
     try {
@@ -67,6 +69,24 @@ function PropertiesTable() {
               cancelText="Cancel"
             >
               <i className="ri-delete-bin-line"></i>
+            </Popconfirm>
+            <Popconfirm
+              style={{ backgroundColor: "white", color: "black" }}
+              title="Edit the Property"
+              description="Are you sure to Edit this Property?"
+              onConfirm={() =>
+                navigate("/add-property", {
+                  state: {
+                    isEdit: true,
+                    property: record,
+                  },
+                })
+              }
+              onCancel={() => {}}
+              okText="Edit"
+              cancelText="Cancel"
+            >
+              <i className="ri-pencil-line"></i>
             </Popconfirm>
           </div>
         );

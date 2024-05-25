@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Form, Input, message } from "antd";
-import { AddProperty } from "../../apicalls/properties";
+import { AddProperty, EditProperty } from "../../apicalls/properties";
 import { useNavigate } from "react-router-dom";
 import { imagesArr } from "../../constants/index";
 
@@ -32,8 +32,12 @@ function Contact({
       };
 
       console.log("tempFinalValues = ", tempFinalValues);
-
-      let response = await AddProperty(tempFinalValues);
+      let response = null;
+      if (isEdit) {
+        response = await EditProperty(tempFinalValues);
+      } else {
+        response = await AddProperty(tempFinalValues);
+      }
       message.success(response.message);
       navigate("/seller-properties");
     } catch (error) {

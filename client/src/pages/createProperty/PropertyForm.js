@@ -4,33 +4,41 @@ import Basic from "./Basic";
 import Location from "./Location";
 import Amenities from "./Amenities";
 import Contact from "./Contact";
+import { useLocation } from "react-router-dom";
 
-function PropertyForm({ isEdit }) {
-  const initialState = {
-    propertyName: "",
-    description: "",
-    type: "",
-    status: "",
-    price: 10000,
-    city: "",
-    pincode: 500090,
-    landmark: "",
-    address: "",
-    bedrooms: 1,
-    bathrooms: 1,
-    balconies: 1,
-    parking: "",
-    furnishing: "",
-    area: 18200,
-    facing: "",
-    ownerName: "",
-    ownerEmail: "",
-    ownerPhoneNumber: "",
-    images: [],
-    media: {
+function PropertyForm() {
+  const location = useLocation();
+  const data = location.state;
+  console.log("data in propert form from edit options = ", data);
+
+  let isEdit = data.isEdit;
+  let initialState = {};
+  if (isEdit) {
+    initialState = { ...data.property };
+  } else {
+    initialState = {
+      propertyName: "",
+      description: "",
+      type: "",
+      status: "",
+      price: 10000,
+      city: "",
+      pincode: 500090,
+      landmark: "",
+      address: "",
+      bedrooms: 1,
+      bathrooms: 1,
+      balconies: 1,
+      parking: "",
+      furnishing: "",
+      area: 18200,
+      facing: "",
+      ownerName: "",
+      ownerEmail: "",
+      ownerPhoneNumber: "",
       images: [],
-    },
-  };
+    };
+  }
   const [currentStep, setCurrentStep] = useState(0);
   const [finalValues, setFinalValues] = useState(initialState);
   const [loading, setLoading] = useState(false);

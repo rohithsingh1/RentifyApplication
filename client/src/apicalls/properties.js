@@ -74,3 +74,17 @@ export const likeProperty = async (payload) => {
     throw error;
   }
 };
+
+
+// Edit Property API
+export const EditProperty = async (payload) => {
+  try {
+    const response = await axiosInstance.post(
+      "/api/property/edit-property",
+      payload
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
