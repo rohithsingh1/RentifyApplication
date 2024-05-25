@@ -21,3 +21,6 @@ Start the React App
 # npm start
 
 This will launch the development server, and you can access the app in your web browser at http://localhost:3000
+
+Deployement Link
+# https://rentifyfrontend-q2k2.onrender.com/
